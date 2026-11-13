@@ -1,6 +1,7 @@
 // All English copy for the site lives here, so it can later be edited from the admin page.
 // hi.ts mirrors this file exactly. Wording rule: Saathi "alerts your family and gets help".
 // Never medical, never a guarantee of rescue.
+import { joinEn } from "./join.en";
 import { appEn } from "./app.en";
 
 export const en = {
@@ -194,6 +195,8 @@ export const en = {
   },
 
   app: appEn,
+
+  join: joinEn,
 
   pages: {
     how: {
@@ -395,7 +398,6 @@ export const en = {
       ],
     },
 
-    join: { title: "Join the pilot", lede: "We are starting with 20 families. The sign-up form opens here shortly." },
   },
 };
 

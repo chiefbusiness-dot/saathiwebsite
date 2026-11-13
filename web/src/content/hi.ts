@@ -1,4 +1,5 @@
 // Hindi copy. Mirrors en.ts exactly; TypeScript reports any missing or extra field.
+import { joinHi } from "./join.hi";
 import { appHi } from "./app.hi";
 import type { Content } from "./en";
 
@@ -193,6 +194,8 @@ export const hi: Content = {
   },
 
   app: appHi,
+
+  join: joinHi,
 
   pages: {
     how: {
@@ -394,6 +397,5 @@ export const hi: Content = {
       ],
     },
 
-    join: { title: "पायलट से जुड़ें", lede: "हम 20 परिवारों से शुरू कर रहे हैं। साइन-अप फ़ॉर्म जल्द ही यहाँ खुलेगा।" },
   },
 };

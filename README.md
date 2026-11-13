@@ -14,4 +14,8 @@ npm start
 
 Then open http://localhost:3000. The design system is at http://localhost:3000/style-guide.
 
+Run the automated tests with `npm test`.
+
+With no setup, sign-ups are saved in an embedded database in the `.pglite` folder. Set `DATABASE_URL` to use a real Postgres database (Supabase in production).
+
 While editing, `npm run dev` gives a live-reloading version at http://localhost:5173.

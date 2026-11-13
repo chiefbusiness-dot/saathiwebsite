@@ -10,7 +10,8 @@ import { FaqPage } from "./pages/FaqPage";
 import { Contact } from "./pages/Contact";
 import { Legal } from "./pages/Legal";
 import { StyleGuide } from "./pages/StyleGuide";
-import { ComingSoon } from "./pages/ComingSoon";
+import { NotFound } from "./pages/NotFound";
+import { Join } from "./pages/Join";
 import { AppPreview } from "./pages/AppPreview";
 
 export function App() {
@@ -28,9 +29,9 @@ export function App() {
         <Route path="privacy" element={<Legal doc="privacy" />} />
         <Route path="terms" element={<Legal doc="terms" />} />
         <Route path="app-preview" element={<AppPreview />} />
-        <Route path="join" element={<ComingSoon page="join" />} />
+        <Route path="join" element={<Join />} />
         <Route path="style-guide" element={<StyleGuide />} />
-        <Route path="*" element={<ComingSoon page="notFound" />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
