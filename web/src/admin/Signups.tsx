@@ -99,6 +99,7 @@ function Row({ s, onChange, onDelete }: { s: Signup; onChange: (s: Signup) => vo
               <span className="block text-[13px] font-semibold">Status</span>
               <select
                 value={s.status}
+                aria-label={`Status for ${s.name}`}
                 disabled={saving}
                 onChange={(e) => patch({ status: e.target.value as Signup["status"] })}
                 className={cx(inputCls, "mt-1.5")}
@@ -114,6 +115,7 @@ function Row({ s, onChange, onDelete }: { s: Signup; onChange: (s: Signup) => vo
               <span className="block text-[13px] font-semibold">Private notes</span>
               <textarea
                 rows={4}
+                aria-label={`Private notes for ${s.name}`}
                 value={notes}
                 maxLength={5000}
                 onChange={(e) => setNotes(e.target.value)}

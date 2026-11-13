@@ -36,7 +36,7 @@ export function AppPreview() {
                 disabled={running}
                 className={cx(
                   "inline-flex h-14 w-full items-center justify-center gap-3 rounded-pill px-8 text-[17px] font-semibold text-white transition-colors sm:w-auto",
-                  running ? "cursor-default bg-coral-deep/60" : "bg-coral-deep hover:bg-[#b93a20]",
+                  running ? "cursor-default bg-coral-deep/60" : "bg-coral-deep hover:bg-[#a33017]",
                 )}
               >
                 <IconFall size={22} />

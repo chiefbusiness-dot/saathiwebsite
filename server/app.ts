@@ -1,6 +1,7 @@
 // The Saathi web app: API routes plus the built website, in one Express app.
 import express from "express";
 import helmet from "helmet";
+import compression from "compression";
 import { rateLimit } from "express-rate-limit";
 import { existsSync } from "node:fs";
 import { getSettings, type Db } from "./db.ts";
@@ -30,6 +31,7 @@ export function createApp(
       },
     }),
   );
+  app.use(compression());
   app.use(express.json({ limit: "20kb" }));
 
   app.get("/api/health", (_req, res) => {
@@ -136,9 +138,12 @@ export function createApp(
 
   const webDir = opts.webDir;
   if (webDir && existsSync(webDir)) {
+    // Files in /assets have a fingerprint in their name, so browsers can keep them for a year.
+    app.use("/assets", express.static(`${webDir}/assets`, { index: false, maxAge: "365d", immutable: true }));
     app.use(express.static(webDir, { index: false, maxAge: "1h" }));
     // Every other route returns the app; React Router shows the right page.
     app.get(/.*/, (_req, res) => {
+      res.set("Cache-Control", "no-cache");
       res.sendFile(`${webDir}/index.html`);
     });
   }

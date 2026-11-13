@@ -5,3 +5,5 @@ dist
 *.log
 .pglite
 .admin-secret
+test-results
+playwright-report

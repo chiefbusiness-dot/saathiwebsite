@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLang, type Lang } from "../i18n";
@@ -20,7 +20,6 @@ function LangSwitch() {
           key={o.id}
           type="button"
           lang={o.id}
-          aria-label={o.name}
           aria-pressed={lang === o.id}
           onClick={() => setLang(o.id)}
           className={cx(
@@ -29,6 +28,7 @@ function LangSwitch() {
           )}
         >
           {o.label}
+          <span className="sr-only"> {o.name}</span>
         </button>
       ))}
     </div>
@@ -54,7 +54,7 @@ function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-paper">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link to="/" aria-label={t.ui.home}>
+        <Link to="/">
           <Logo />
         </Link>
 
@@ -162,7 +162,9 @@ export function Layout() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Outlet />
+        <Suspense fallback={<div className="min-h-[60vh]" />}>
+          <Outlet />
+        </Suspense>
       </motion.main>
       <Footer />
     </div>

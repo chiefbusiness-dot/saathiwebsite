@@ -218,7 +218,7 @@ function MinuteStep({
     <motion.li
       ref={ref}
       className="relative flex gap-6 pb-12 last:pb-0"
-      animate={{ opacity: reached ? 1 : 0.38 }}
+      animate={{ opacity: reached ? 1 : 0.75 }}
       transition={{ duration: 0.4 }}
     >
       <span
@@ -513,7 +513,7 @@ export function PlacePhoto({ className }: { className?: string }) {
   return (
     <div
       className={cx("relative aspect-[4/3] overflow-hidden rounded-card", className)}
-      style={{ background: "linear-gradient(160deg, #0E8F7E 0%, #0A6B5F 55%, #073F39 100%)" }}
+      style={{ background: "linear-gradient(160deg, #0A7A6B 0%, #075A50 55%, #073F39 100%)" }}
     >
       <svg viewBox="0 0 400 300" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
         <path d="M0 220 80 150l50 40 70-90 60 70 50-45 90 95v80H0Z" fill="#fff" opacity="0.1" />

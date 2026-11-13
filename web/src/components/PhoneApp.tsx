@@ -34,7 +34,7 @@ function HomeTab() {
             {h.name.slice(0, 1)}
           </span>
           <div>
-            <p className="text-[13px] text-white/85">{h.name}</p>
+            <p className="text-[13px] text-white">{h.name}</p>
             <p className="text-[22px] font-bold leading-tight">{h.status}</p>
           </div>
           <IconShield size={28} className="ml-auto shrink-0" />
@@ -65,7 +65,7 @@ function HomeTab() {
 export function MiniMap({ alert = false, className }: { alert?: boolean; className?: string }) {
   const m = useLang().t.app.map;
   const reduce = useReducedMotion();
-  const pin = alert ? "#FF6B4A" : "#0E8F7E";
+  const pin = alert ? "#FF6B4A" : "#0A7A6B";
   return (
     <svg viewBox="0 0 320 300" className={className} role="img" aria-label={`${m.place}, ${m.address}`}>
       <rect width="320" height="300" fill="#EAF1EE" />

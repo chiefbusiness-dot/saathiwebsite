@@ -25,22 +25,22 @@ export function WhySaathi() {
               <Reveal key={r.name} delay={(i % 2) * 0.08}>
                 <Card className="h-full">
                   <h3 className="title">{r.name}</h3>
-                  <dl className="mt-5 space-y-4 text-[16px] leading-relaxed">
+                  <div className="mt-5 space-y-4 text-[16px] leading-relaxed">
                     <div className="flex gap-3">
                       <IconCheck size={20} className="mt-0.5 shrink-0 text-teal" />
                       <div>
-                        <dt className="text-[13px] font-semibold text-ink-2">{p.gives}</dt>
-                        <dd>{r.gives}</dd>
+                        <p className="text-[13px] font-semibold text-ink-2">{p.gives}</p>
+                        <p>{r.gives}</p>
                       </div>
                     </div>
                     <div className="flex gap-3">
                       <IconX size={20} className="mt-0.5 shrink-0 text-coral-deep" />
                       <div>
-                        <dt className="text-[13px] font-semibold text-ink-2">{p.misses}</dt>
-                        <dd>{r.misses}</dd>
+                        <p className="text-[13px] font-semibold text-ink-2">{p.misses}</p>
+                        <p>{r.misses}</p>
                       </div>
                     </div>
-                  </dl>
+                  </div>
                 </Card>
               </Reveal>
             ))}

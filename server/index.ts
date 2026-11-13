@@ -8,7 +8,9 @@ import { createApp } from "./app.ts";
 const production = process.env.NODE_ENV === "production";
 const port = Number(process.env.PORT) || 3000;
 const webDir = fileURLToPath(new URL("../dist/web", import.meta.url));
-const dataDir = fileURLToPath(new URL("../.pglite", import.meta.url));
+// PGLITE_DIR=memory keeps data in memory only (used by the browser tests).
+const dataDir =
+  process.env.PGLITE_DIR === "memory" ? undefined : (process.env.PGLITE_DIR ?? fileURLToPath(new URL("../.pglite", import.meta.url)));
 const secretFile = fileURLToPath(new URL("../.admin-secret", import.meta.url));
 
 /**

@@ -2,7 +2,7 @@
 export function LogoMark({ size = 28, onDark = false }: { size?: number; onDark?: boolean }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true">
-      <rect width="32" height="32" rx="9" fill={onDark ? "#34C3AD" : "#0E8F7E"} />
+      <rect width="32" height="32" rx="9" fill={onDark ? "#34C3AD" : "#0A7A6B"} />
       <circle cx="12.5" cy="16" r="6" fill="none" stroke={onDark ? "#0B0B0D" : "#fff"} strokeWidth="2.6" />
       <circle cx="19.5" cy="16" r="6" fill="none" stroke={onDark ? "#0B0B0D" : "#fff"} strokeWidth="2.6" opacity="0.85" />
     </svg>
