@@ -1,0 +1,20 @@
+# Render blueprint: one free web service that serves the website, the API and the admin page.
+services:
+  - type: web
+    name: saathi
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        sync: false # paste your Supabase connection string in the Render dashboard
+      - key: ADMIN_SECRET
+        sync: false # choose your own admin password (at least 12 characters)

@@ -33,6 +33,10 @@ function adminSecret(): string | null {
   return readFileSync(secretFile, "utf8").trim();
 }
 
+if (production && !process.env.DATABASE_URL) {
+  console.error("DATABASE_URL is not set. Online, Saathi needs a real database (Supabase), or sign-ups would be lost on every restart.");
+  process.exit(1);
+}
 const db = await openDb({ url: process.env.DATABASE_URL, dataDir });
 const app = createApp(db, { webDir, adminSecret: adminSecret(), secureCookies: production });
 
