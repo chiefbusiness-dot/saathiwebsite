@@ -1,22 +1,16 @@
 // The Saathi watch, drawn entirely in vector so it stays sharp at any size.
 // `state` switches the screen between the calm face and the alert face.
 import { useId } from "react";
+import { useLang } from "../i18n";
 
-export function Watch({
-  state = "ok",
-  className,
-  title = "Saathi 4G safety watch",
-}: {
-  state?: "ok" | "alert";
-  className?: string;
-  title?: string;
-}) {
+export function Watch({ state = "ok", className }: { state?: "ok" | "alert"; className?: string }) {
   const id = useId().replace(/:/g, "");
+  const w = useLang().t.watch;
   const alert = state === "alert";
   const accent = alert ? "#FF6B4A" : "#34C3AD";
 
   return (
-    <svg viewBox="0 0 320 540" className={className} role="img" aria-label={title}>
+    <svg viewBox="0 0 320 540" className={className} role="img" aria-label={w.label}>
       <defs>
         <linearGradient id={`${id}-strap`} x1="0" x2="1">
           <stop offset="0" stopColor="#1b1b1e" />
@@ -58,7 +52,7 @@ export function Watch({
       <rect x="62" y="150" width="196" height="240" rx="50" fill={`url(#${id}-glass)`} />
 
       {/* Screen */}
-      <g fontFamily="Inter Variable, system-ui, sans-serif">
+      <g fontFamily="Inter Variable, Noto Sans Devanagari, system-ui, sans-serif">
         <circle cx="160" cy="262" r="92" fill={`url(#${id}-glow)`} />
 
         {/* Status row */}
@@ -83,10 +77,10 @@ export function Watch({
               SOS
             </text>
             <text x="160" y="328" textAnchor="middle" fontSize="15" fontWeight="600" fill="#fff">
-              Calling Saathi…
+              {w.calling}
             </text>
             <text x="160" y="350" textAnchor="middle" fontSize="12" fill="#a1a1a6">
-              Help is on the line
+              {w.help}
             </text>
           </>
         ) : (
@@ -104,12 +98,11 @@ export function Watch({
               10:24
             </text>
             <text x="160" y="304" textAnchor="middle" fontSize="13" fill="#a1a1a6">
-              Tuesday 12
+              {w.date}
             </text>
-            <rect x="106" y="328" width="108" height="30" rx="15" fill="#34C3AD" fillOpacity="0.16" />
-            <circle cx="124" cy="343" r="4" fill="#34C3AD" />
-            <text x="136" y="347.500" fontSize="13" fontWeight="600" fill="#34C3AD">
-              All is well
+            <rect x="100" y="328" width="120" height="30" rx="15" fill="#34C3AD" fillOpacity="0.16" />
+            <text x="160" y="347.500" textAnchor="middle" fontSize="13" fontWeight="600" fill="#34C3AD">
+              ● {w.ok}
             </text>
           </>
         )}
