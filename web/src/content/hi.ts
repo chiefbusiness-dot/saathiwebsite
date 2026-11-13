@@ -1,4 +1,5 @@
 // Hindi copy. Mirrors en.ts exactly; TypeScript reports any missing or extra field.
+import { appHi } from "./app.hi";
 import type { Content } from "./en";
 
 export const hi: Content = {
@@ -32,7 +33,7 @@ export const hi: Content = {
       { to: "/our-story", label: "हमारी कहानी" },
       { to: "/faq", label: "सवाल-जवाब" },
     ],
-    more: [{ to: "/why-saathi", label: "साथी क्यों" }],
+    more: [{ to: "/why-saathi", label: "साथी क्यों" }, { to: "/app-preview", label: "फ़ैमिली ऐप" }],
     cta: "पायलट से जुड़ें",
   },
 
@@ -190,6 +191,8 @@ export const hi: Content = {
       { to: "/contact", label: "संपर्क" },
     ],
   },
+
+  app: appHi,
 
   pages: {
     how: {
@@ -391,7 +394,6 @@ export const hi: Content = {
       ],
     },
 
-    preview: { title: "फ़ैमिली ऐप", lede: "आपके फ़ोन पर क्या दिखेगा, उसकी एक झलक।" },
     join: { title: "पायलट से जुड़ें", lede: "हम 20 परिवारों से शुरू कर रहे हैं। साइन-अप फ़ॉर्म जल्द ही यहाँ खुलेगा।" },
   },
 };

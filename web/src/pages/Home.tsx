@@ -4,7 +4,7 @@ import { Button, Container, Pill } from "../components/ui";
 import { Reveal } from "../components/Reveal";
 import { Watch } from "../components/Watch";
 import { IconArrow } from "../components/Icons";
-import { Care, Compare, Cta, FaqTeaser, Features, Minutes, Pricing, Problem, StoryTeaser, TwoThings } from "../components/sections";
+import { AppTeaser, Care, Compare, Cta, FaqTeaser, Features, Minutes, Pricing, Problem, StoryTeaser, TwoThings } from "../components/sections";
 
 function Hero() {
   const h = useLang().t.hero;
@@ -81,6 +81,7 @@ export function Home() {
       <TwoThings />
       <Features />
       <Minutes />
+      <AppTeaser />
       <Care />
       <Pricing />
       <Compare />

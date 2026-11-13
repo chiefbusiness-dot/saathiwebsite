@@ -2,7 +2,7 @@
 import { useLang } from "../i18n";
 import { Button, Container, Eyebrow, Section } from "../components/ui";
 
-export function ComingSoon({ page }: { page: "preview" | "join" | "notFound" }) {
+export function ComingSoon({ page }: { page: "join" | "notFound" }) {
   const { t } = useLang();
   const p = page === "notFound" ? t.ui.notFound : t.pages[page];
   return (

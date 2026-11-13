@@ -295,6 +295,26 @@ export function Minutes() {
   );
 }
 
+export function AppTeaser() {
+  const a = useLang().t.app.teaser;
+  return (
+    <Section tone="mist">
+      <Container>
+        <Reveal className="mx-auto flex max-w-5xl flex-col items-start gap-8 rounded-card bg-paper p-8 shadow-soft ring-1 ring-black/5 sm:p-12 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-xl">
+            <Eyebrow>{a.eyebrow}</Eyebrow>
+            <h2 className="headline mt-4 !text-[clamp(1.75rem,3.4vw,2.5rem)]">{a.title}</h2>
+            <p className="mt-4 text-[17px] leading-relaxed text-ink-2">{a.body}</p>
+          </div>
+          <Button to="/app-preview" size="lg" className="shrink-0">
+            {a.cta} <IconArrow size={20} />
+          </Button>
+        </Reveal>
+      </Container>
+    </Section>
+  );
+}
+
 export function Care({ link = true }: { link?: boolean }) {
   const c = useLang().t.care;
   return (

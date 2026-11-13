@@ -11,6 +11,7 @@ import { Contact } from "./pages/Contact";
 import { Legal } from "./pages/Legal";
 import { StyleGuide } from "./pages/StyleGuide";
 import { ComingSoon } from "./pages/ComingSoon";
+import { AppPreview } from "./pages/AppPreview";
 
 export function App() {
   return (
@@ -26,7 +27,7 @@ export function App() {
         <Route path="contact" element={<Contact />} />
         <Route path="privacy" element={<Legal doc="privacy" />} />
         <Route path="terms" element={<Legal doc="terms" />} />
-        <Route path="app-preview" element={<ComingSoon page="preview" />} />
+        <Route path="app-preview" element={<AppPreview />} />
         <Route path="join" element={<ComingSoon page="join" />} />
         <Route path="style-guide" element={<StyleGuide />} />
         <Route path="*" element={<ComingSoon page="notFound" />} />

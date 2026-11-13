@@ -1,6 +1,7 @@
 // All English copy for the site lives here, so it can later be edited from the admin page.
 // hi.ts mirrors this file exactly. Wording rule: Saathi "alerts your family and gets help".
 // Never medical, never a guarantee of rescue.
+import { appEn } from "./app.en";
 
 export const en = {
   ui: {
@@ -33,7 +34,7 @@ export const en = {
       { to: "/our-story", label: "Our story" },
       { to: "/faq", label: "FAQ" },
     ],
-    more: [{ to: "/why-saathi", label: "Why Saathi" }],
+    more: [{ to: "/why-saathi", label: "Why Saathi" }, { to: "/app-preview", label: "Family app" }],
     cta: "Join the pilot",
   },
 
@@ -191,6 +192,8 @@ export const en = {
       { to: "/contact", label: "Contact" },
     ],
   },
+
+  app: appEn,
 
   pages: {
     how: {
@@ -392,7 +395,6 @@ export const en = {
       ],
     },
 
-    preview: { title: "The family app", lede: "A preview of what you will see on your phone." },
     join: { title: "Join the pilot", lede: "We are starting with 20 families. The sign-up form opens here shortly." },
   },
 };
