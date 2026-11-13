@@ -10,7 +10,7 @@ This document is the brief the website is built from. It is written so it can be
 
 ## 0. Non-negotiable rules
 
-- **No selling yet.** The watch cannot legally be sold in India until WPC/BIS certification (target: May 2027). The site takes **waitlist and pilot sign-ups only**: no cart, no payments, no "Buy now". A "Pre-order / Buy" switch exists in the admin page but is **off** by default.
+- **No selling yet.** The watch cannot legally be sold in India until WPC/BIS certification (target: May 2027). The site takes **waitlist and pilot sign-ups only**: no cart, no payments, no "Buy now". There is no pre-order or buy button until certification.
 - **Never a medical claim.** Copy always says Saathi "alerts your family and gets help". Never "diagnoses", "monitors your health", "medical device", or "guarantees rescue". The footer says: *"Saathi alerts your family and coordinates help. It is not a medical device and does not replace emergency services. In an emergency, call 112."*
 - **Privacy first.** Sign-up data (names, phone numbers, parents' city) is visible only in the admin page. No third-party trackers or ad pixels. Simple, honest privacy policy page.
 - **The family-app preview uses sample data only**, clearly labelled "Preview — sample data". It never connects to a real watch or shows a real person.
@@ -105,7 +105,7 @@ Clearly marked "Preview — sample data. The real app launches with the watch."
 - **Prices and numbers:** watch price, care-plan price, pilot seats left, launch date text.
 - **Photos:** upload/replace hero, story and team photos (auto-resized and sharp on every screen).
 - **Contact settings:** phone, email, WhatsApp number, address.
-- **Switches:** show/hide the family-app preview, open/close pilot sign-ups, pre-order mode (off until certification).
+- **Switches:** show/hide the family-app preview, open/close pilot sign-ups. (A pre-order switch is left out until there is something legal to sell; it belongs with the 2027 sales work.)
 - Security: rate-limited login, helmet headers, input validation everywhere, CORS locked to the site's own domain.
 
 ## 8. Data to store
@@ -129,7 +129,7 @@ At the end, write `DEPLOY_GUIDE.md` and explain it step by step in chat, assumin
 - Running it on the Mac with one command.
 - Signing in to GitHub on this Mac and uploading the project.
 - Creating a free Supabase project and copying the database connection string.
-- Creating a free Render web service from GitHub, and exactly which environment variables to paste (`DATABASE_URL`, `ADMIN_SECRET`, `SESSION_SECRET`).
+- Creating a free Render web service from GitHub, and exactly which environment variables to paste (`DATABASE_URL`, `ADMIN_SECRET`; `NODE_ENV=production` is set by `render.yaml`).
 - First admin login: editing text, checking sign-ups, downloading the spreadsheet.
 - Optional: connecting a custom domain.
 - Free-tier limits in plain words (Render sleeps after ~15 minutes idle and takes ~50 seconds to wake; Supabase pauses after a week without use and how to un-pause).

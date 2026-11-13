@@ -2,6 +2,7 @@
 import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useLang } from "../i18n";
+import { useImage, useSite } from "../site";
 import { Button, Card, Container, Eyebrow, Pill, Section, cx } from "./ui";
 import { Reveal } from "./Reveal";
 import { Watch } from "./Watch";
@@ -297,6 +298,7 @@ export function Minutes() {
 
 export function AppTeaser() {
   const a = useLang().t.app.teaser;
+  if (!useSite().settings.preview_visible) return null;
   return (
     <Section tone="mist">
       <Container>
@@ -499,7 +501,15 @@ export function Compare() {
 
 /** Photo slot: replaced from the admin page later. */
 export function PlacePhoto({ className }: { className?: string }) {
-  const place = useLang().t.story.place;
+  const { place, photoAlt } = useLang().t.story;
+  const img = useImage("story");
+  if (img) {
+    return (
+      <div className={cx("relative aspect-[4/3] overflow-hidden rounded-card bg-mist", className)}>
+        <img src={img.src} srcSet={img.srcSet} sizes="(min-width: 1024px) 600px, 100vw" alt={photoAlt} className="h-full w-full object-cover" />
+      </div>
+    );
+  }
   return (
     <div
       className={cx("relative aspect-[4/3] overflow-hidden rounded-card", className)}

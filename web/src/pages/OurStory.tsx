@@ -1,10 +1,12 @@
 import { useLang } from "../i18n";
+import { useImage } from "../site";
 import { Container, Section } from "../components/ui";
 import { Reveal } from "../components/Reveal";
 import { Cta, PageHero, PlacePhoto, SectionHead } from "../components/sections";
 
 export function OurStory() {
   const p = useLang().t.pages.story;
+  const team = useImage("team");
   return (
     <>
       <PageHero eyebrow={p.eyebrow} title={p.title} />
@@ -20,6 +22,17 @@ export function OurStory() {
               </Reveal>
             ))}
           </div>
+          {team && (
+            <Reveal className="mt-12">
+              <img
+                src={team.src}
+                srcSet={team.srcSet}
+                sizes="(min-width: 768px) 720px, 100vw"
+                alt={p.teamAlt}
+                className="aspect-[3/2] w-full rounded-card object-cover"
+              />
+            </Reveal>
+          )}
         </Container>
       </Section>
       <Section tone="mist">

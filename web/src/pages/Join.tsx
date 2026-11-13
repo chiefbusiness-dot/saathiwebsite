@@ -168,6 +168,12 @@ export function Join() {
     }
   };
 
+  // When the pilot is full or closed, only the waitlist is offered.
+  const pilotClosed = pilot !== null && !pilot.open;
+  useEffect(() => {
+    if (pilotClosed) setV((old) => (old.interest === "pilot" ? { ...old, interest: "waitlist" } : old));
+  }, [pilotClosed]);
+
   useEffect(() => {
     if (state === "done") {
       window.scrollTo(0, 0);
@@ -341,7 +347,7 @@ export function Join() {
                 {f.interest.label}
               </p>
               <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {(["pilot", "waitlist"] as const).map((k) => {
+                {(pilotClosed ? (["waitlist"] as const) : (["pilot", "waitlist"] as const)).map((k) => {
                   const on = v.interest === k;
                   return (
                     <label

@@ -5,8 +5,12 @@ import { rateLimit } from "express-rate-limit";
 import { existsSync } from "node:fs";
 import { getSettings, type Db } from "./db.ts";
 import { parseSignup } from "./validate.ts";
+import { adminRouter, IMAGE_SLOTS } from "./admin.ts";
 
-export function createApp(db: Db, opts: { webDir?: string; signupLimit?: number } = {}) {
+export function createApp(
+  db: Db,
+  opts: { webDir?: string; signupLimit?: number; adminSecret?: string | null; secureCookies?: boolean; loginLimit?: number } = {},
+) {
   const app = express();
   app.disable("x-powered-by");
   app.set("trust proxy", 1); // Render sits behind one proxy; needed for correct visitor IPs.
@@ -18,7 +22,7 @@ export function createApp(db: Db, opts: { webDir?: string; signupLimit?: number 
           defaultSrc: ["'self'"],
           scriptSrc: ["'self'"],
           styleSrc: ["'self'", "'unsafe-inline'"], // animations set inline styles
-          imgSrc: ["'self'", "data:"],
+          imgSrc: ["'self'", "data:", "blob:"],
           fontSrc: ["'self'"],
           connectSrc: ["'self'"],
           frameAncestors: ["'none'"],
@@ -40,6 +44,55 @@ export function createApp(db: Db, opts: { webDir?: string; signupLimit?: number 
     res.json({ total, left, open: Boolean(s.pilot_open) && left > 0 });
   });
 
+  // Everything the public site needs that the owner can change: text overrides, prices,
+  // switches, contact details and photo versions.
+  app.get("/api/site", async (_req, res) => {
+    const s = await getSettings(db);
+    const [content] = await db.query<{ en: object; hi: object }>(`SELECT en, hi FROM content_versions ORDER BY id DESC LIMIT 1`);
+    const imgs = await db.query<{ slot: string; v: string }>(`SELECT slot, max(version)::text AS v FROM images GROUP BY slot`);
+    res.set("Cache-Control", "no-cache");
+    res.json({
+      settings: {
+        pilot_open: Boolean(s.pilot_open),
+        preview_visible: Boolean(s.preview_visible),
+        watch_price: String(s.watch_price),
+        plan_price: String(s.plan_price),
+        contact_phone: String(s.contact_phone),
+        contact_email: String(s.contact_email),
+        contact_whatsapp: String(s.contact_whatsapp),
+        contact_address: String(s.contact_address),
+      },
+      content: { en: content?.en ?? {}, hi: content?.hi ?? {} },
+      images: Object.fromEntries(imgs.map((i) => [i.slot, i.v])),
+    });
+  });
+
+  app.get("/api/images/:slot", async (req, res) => {
+    const slot = req.params.slot;
+    const want = Number(req.query.w) || 1600;
+    if (!(IMAGE_SLOTS as readonly string[]).includes(slot)) {
+      res.status(404).end();
+      return;
+    }
+    const rows = await db.query<{ data: Uint8Array; version: string }>(
+      `SELECT data, version::text AS version FROM images WHERE slot = $1 ORDER BY abs(width - $2) LIMIT 1`,
+      [slot, want],
+    );
+    if (!rows.length) {
+      res.status(404).end();
+      return;
+    }
+    res.set("Content-Type", "image/webp");
+    // A new upload gets a new ?v=, so old copies can be cached for a long time.
+    res.set("Cache-Control", req.query.v === rows[0].version ? "public, max-age=31536000, immutable" : "no-cache");
+    res.send(Buffer.from(rows[0].data));
+  });
+
+  app.use(
+    "/api/admin",
+    adminRouter(db, { secret: opts.adminSecret ?? null, secure: opts.secureCookies ?? false, loginLimit: opts.loginLimit }),
+  );
+
   const signupLimiter = rateLimit({
     windowMs: 60 * 60 * 1000,
     limit: opts.signupLimit ?? 5,
@@ -60,6 +113,9 @@ export function createApp(db: Db, opts: { webDir?: string; signupLimit?: number 
       return;
     }
     const d = parsed.data;
+    // When the pilot is full or closed, new interest goes on the waitlist.
+    const pilot = await getSettings(db);
+    if (d.interest === "pilot" && (!pilot.pilot_open || Number(pilot.pilot_left) <= 0)) d.interest = "waitlist";
     // The same phone signing up again updates their entry instead of creating a duplicate.
     await db.query(
       `INSERT INTO signups (name, phone, email, city, parent_city, parent_age, interest, message, lang)

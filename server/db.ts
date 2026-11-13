@@ -32,10 +32,17 @@ export async function openDb(opts: { url?: string; dataDir?: string } = {}): Pro
   return db;
 }
 
-const defaults: Record<string, unknown> = {
+export const defaults: Record<string, unknown> = {
   pilot_total: 20,
   pilot_left: 20,
   pilot_open: true,
+  preview_visible: true,
+  watch_price: "₹9,999",
+  plan_price: "₹199",
+  contact_phone: "",
+  contact_email: "",
+  contact_whatsapp: "",
+  contact_address: "",
 };
 
 async function migrate(db: Db) {
@@ -60,6 +67,37 @@ async function migrate(db: Db) {
     CREATE TABLE IF NOT EXISTS settings (
       key TEXT PRIMARY KEY,
       value JSONB NOT NULL
+    )`);
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS admin_sessions (
+      id SERIAL PRIMARY KEY,
+      token_hash TEXT NOT NULL UNIQUE,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      last_seen TIMESTAMPTZ NOT NULL DEFAULT now(),
+      user_agent TEXT NOT NULL DEFAULT ''
+    )`);
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS admin_log (
+      id SERIAL PRIMARY KEY,
+      at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      action TEXT NOT NULL,
+      detail TEXT NOT NULL DEFAULT ''
+    )`);
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS content_versions (
+      id SERIAL PRIMARY KEY,
+      at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      en JSONB NOT NULL DEFAULT '{}'::jsonb,
+      hi JSONB NOT NULL DEFAULT '{}'::jsonb,
+      note TEXT NOT NULL DEFAULT ''
+    )`);
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS images (
+      slot TEXT NOT NULL,
+      width INT NOT NULL,
+      version BIGINT NOT NULL,
+      data BYTEA NOT NULL,
+      PRIMARY KEY (slot, width)
     )`);
   for (const [key, value] of Object.entries(defaults)) {
     await db.query(`INSERT INTO settings (key, value) VALUES ($1, $2::jsonb) ON CONFLICT (key) DO NOTHING`, [

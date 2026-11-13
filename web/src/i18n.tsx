@@ -2,6 +2,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { en, type Content } from "./content/en";
 import { hi } from "./content/hi";
+import { applyContent, useSite } from "./site";
 
 export type Lang = "en" | "hi";
 const KEY = "saathi-lang";
@@ -36,7 +37,16 @@ export function LangProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
-  const value = useMemo(() => ({ lang, setLang, t: all[lang] }), [lang, setLang]);
+  const site = useSite();
+  const t = useMemo(
+    () =>
+      applyContent(all[lang], site.content[lang] ?? {}, {
+        watchPrice: site.settings.watch_price,
+        planPrice: site.settings.plan_price,
+      }),
+    [lang, site],
+  );
+  const value = useMemo(() => ({ lang, setLang, t }), [lang, setLang, t]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 

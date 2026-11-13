@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLang, type Lang } from "../i18n";
+import { useSite } from "../site";
 import { Logo } from "./Logo";
 import { Button, Container, cx } from "./ui";
 import { IconMenu, IconX } from "./Icons";
@@ -34,8 +35,16 @@ function LangSwitch() {
   );
 }
 
+/** Extra links, without the app preview when the owner has hidden it. */
+function useMore() {
+  const { t } = useLang();
+  const show = useSite().settings.preview_visible;
+  return t.nav.more.filter((l) => show || l.to !== "/app-preview");
+}
+
 function Nav() {
   const { t } = useLang();
+  const more = useMore();
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   useEffect(() => {
@@ -83,7 +92,7 @@ function Nav() {
       {open && (
         <nav className="border-t border-line bg-paper lg:hidden" aria-label="Mobile">
           <Container className="flex flex-col py-3">
-            {[...t.nav.links, ...t.nav.more].map((l) => (
+            {[...t.nav.links, ...more].map((l) => (
               <Link key={l.to} to={l.to} className="border-b border-line py-4 text-[19px] font-semibold text-ink">
                 {l.label}
               </Link>
@@ -100,6 +109,7 @@ function Nav() {
 
 function Footer() {
   const { t } = useLang();
+  const more = useMore();
   const f = t.footer;
   return (
     <footer className="bg-mist text-ink">
@@ -110,7 +120,7 @@ function Footer() {
             <p className="mt-4 text-[15px] text-ink-2">{f.tagline}</p>
           </div>
           <div className="grid grid-cols-2 gap-x-16 gap-y-3 text-[15px]">
-            {[...t.nav.links, ...t.nav.more, ...f.legal].map((l) => (
+            {[...t.nav.links, ...more, ...f.legal].map((l) => (
               <Link key={l.to} to={l.to} className="text-ink-2 hover:text-ink">
                 {l.label}
               </Link>

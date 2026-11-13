@@ -122,14 +122,14 @@ export const en = {
     title: "Buy the watch once. Add care if you want it.",
     watch: {
       name: "Saathi watch",
-      price: "₹9,999",
+      price: "{watchPrice}",
       unit: "one-time",
       points: ["Fall detection, SOS, GPS and voice calling", "Alerts to the family's phones", "Works without any subscription"],
       badge: "",
     },
     plan: {
       name: "Care plan",
-      price: "₹199",
+      price: "{planPrice}",
       unit: "per month, optional",
       points: ["A trained person answers every alert", "Daily check-in call", "Small errands on request", "Cancel any time"],
       badge: "The heart of Saathi",
@@ -161,6 +161,7 @@ export const en = {
     ],
     link: "Read our story",
     place: "Dehradun, Uttarakhand",
+    photoAlt: "Dehradun, where Saathi began",
   },
 
   faq: {
@@ -222,7 +223,7 @@ export const en = {
     care: {
       eyebrow: "The care plan",
       title: "The part that makes Saathi different.",
-      lede: "For ₹199 a month, a trained person answers every alert from your parent's watch, calls every day, and helps with small things. It is optional, and you can add it at any time.",
+      lede: "For {planPrice} a month, a trained person answers every alert from your parent's watch, calls every day, and helps with small things. It is optional, and you can add it at any time.",
       day: {
         eyebrow: "A day with the care plan",
         title: "Quietly there, all day.",
@@ -305,6 +306,7 @@ export const en = {
         "That is the part we decided to build. The watch is something anyone can buy. A trusted team that picks up, calls the neighbour, calls the ambulance and stays with the family is not, and it has to be built on the ground, one city at a time.",
         "We are starting at home, in Dehradun, with a small group of families, so we can get the response right before we grow.",
       ],
+      teamAlt: "The Saathi team",
       values: {
         eyebrow: "What we believe",
         title: "Three promises we work by.",
@@ -352,7 +354,7 @@ export const en = {
           title: "Buying",
           items: [
             { q: "When can I buy Saathi?", a: "We plan to start selling in 2027, once the watch has completed its Indian certifications. Before that we are running a small paid pilot with 20 families." },
-            { q: "How much will it cost?", a: "The planned prices are ₹9,999 once for the watch, and ₹199 a month for the optional care plan." },
+            { q: "How much will it cost?", a: "The planned prices are {watchPrice} once for the watch, and {planPrice} a month for the optional care plan." },
             { q: "Is Saathi a medical device?", a: "No. Saathi alerts your family and coordinates help. It does not diagnose or treat anything and does not replace emergency services." },
           ],
         },
@@ -368,6 +370,7 @@ export const en = {
         { title: "Questions", body: "Most questions about the watch, the care plan and privacy are answered on our FAQ page.", cta: "Read the FAQ", to: "/faq" },
       ],
       emergency: "Saathi is not an emergency service. In an emergency, call 112.",
+      details: { title: "Reach us directly", phone: "Phone", whatsapp: "WhatsApp", email: "Email", address: "Address", chat: "Chat on WhatsApp" },
     },
 
     privacy: {
