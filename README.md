@@ -23,3 +23,5 @@ While editing, `npm run dev` gives a live-reloading version at http://localhost:
 ## Putting it online
 
 See [DEPLOY_GUIDE.md](DEPLOY_GUIDE.md) for step-by-step instructions (GitHub, Supabase, Render).
+
+Live site: https://saathi-lbis.onrender.com
